@@ -1,0 +1,138 @@
+<html>
+<head>
+    <title>Don't Get Rekt</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.12.7/vue.min.js"></script>
+    
+    <link rel="icon" type="image/png" href="skull-32.png">
+
+</head>
+<body class="bg-gray-200">
+    <div class="container mx-auto content-center">
+        <h1 class="text-4xl text-center mt-8">💀 Don't Get <span class="text-red-400">Rekt</span> 💀</h1>
+        <div class="content-center bg-white p-8 m-8 rounded-md">
+            <form class="grid grid-flow-col gap-4">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Loan Information</h3>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-first-name">
+                                Current Collateral
+                            </label>
+                            <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-first-name" type="text" v-model="currentCollateral">
+                        </div>
+                        <div class="w-full md:w-1/2 px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-last-name">
+                                Current Debt
+                            </label>
+                            <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" v-model="currentDebt">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-first-name">
+                                Current Price
+                            </label>
+                            <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-first-name" type="text" v-model="currentPrice">
+                        </div>
+                        <div class="w-full md:w-1/2 px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-last-name">
+                                Current 21W EMA Price
+                            </label>
+                            <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" v-model="currentEma">
+                        </div>
+                    </div>
+
+                    <div class="md:flex -mx-3 mb-6 justify-center items-center">
+                            <button
+                                class="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                type="button" v-on="click:calculate">
+                                Calculate
+                            </button>
+                    </div>
+
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full px-3 mb-6 md:mb-0">
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-first-name">
+                                Original Collateral
+                            </label>
+                            <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-first-name" type="text" v-model="originalCollateral">
+                        </div>
+                        <div class="w-full md:w-1/2 px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-last-name">
+                                Original Price
+                            </label>
+                            <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" v-model="originalPrice">
+                        </div>
+                    </div>
+
+
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-first-name">
+                                Max Borrow
+                            </label>
+                            <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-first-name" type="text" v-model="maxBorrow">
+                        </div>
+                        <div class="w-full md:w-1/2 px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-last-name">
+                                Repay Ratio (%)
+                            </label>
+                            <input
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-last-name" type="text" v-model="repayRatio">
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Results</h3>
+                    <div class="text-lg">
+                        <p>You should borrow <span class="font-bold">{{boostAmount  | toFixed 4}}</span> ETH worth <span
+                                class="font-bold">${{boostAmount * currentPrice | toFixed}}</span></p>
+
+                        <p>New Collateral: <span class="font-bold">{{newCollateral | toFixed 4}}</span> ETH worth <span
+                                class="font-bold">${{newCollateral * currentPrice | toFixed}}</span></p>
+
+                        <p>New Debt: $<span class="font-bold">{{newDebt | toFixed}}</span></p>
+
+                        <p>Profit/Loss: $<span class="font-bold">{{profit | toFixed}}</span></p>
+                    </div>
+                </div>
+
+            </form></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
